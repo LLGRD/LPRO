@@ -7,8 +7,45 @@
     <h1>--- Introduction au logiciel GIMP ---</h1>
     <p>
       Auteur : <a target="blank" href="https://www.umr-lastig.fr/laman-lelegard/">Lâmân Lelégard</a><br/>
-      Date : 19 janvier 2022<br/>
-      Sujet : ceci  est un page "fourre-tout" en construction...
+      Date : 13-14-19 janvier 2022<br/>
+      Sujet : petit rappel de certaines manipulations d'images vues en cours...
+    </p>
+    
+    <h2>Introduction : jouons avec l'échantillonage d'une image</h2>
+    <p>
+      Le TP commence avec une manipulation "simple" : l'ouverture de cette <a target="blank" href="intro/gravure.jpg">image</a> 
+      (une gravure de Gustave Doré représentant un singe chevauchant un <s>poisson-chien</s> dauphin). Pour cela, deux possibilités : 
+      lancer GIMP et <i>Fichier > Ouvrir</i> (le raccourci <i>Ctrl+O</i> marche aussi) ou bien cliquer-droit sur le fichier image et
+      <i>Ouvrir avec > GIMP</i>. Normalement, par défaut, lors de la première utilisation de GIMP, la fenêtre d'histogramme n'est pas 
+      affichée. Pour cela : <i>Fenêtre > Fenêtre ancrable > Histogramme</i>. <b>Petit rappel</b> : un histogramme est un courbe qui 
+      donne en ordonnée le nombre de pixels ayant une valeur x (x entre 0 et 255, en abscisse). Un histogramme normalisé, c'est le même 
+      chose mais divisé par le nombre de pixels total : on l'interprètera alors comme une "densité de probabilité" (un pixel à une chance 
+      Hn(x) de valoir x ou Hn est l'histogramme normalisé).
+    </p>
+    <p>
+      La première manipulation proposée est un seuillage de l'image, ce qui correspond à un passage de 256 niveaux (8 bits) à deux 
+      niveaux (1 bit). Dans la capture d'écran ci-dessous, le seuil (souvent fixé par défaut à 128 ou 127) a été choisi de telle sorte 
+      à obtenir un histogramme avec 50% de pixels noirs et 50% de pixels blancs :<br>
+      <a target="blank" href="z/fig1.png"><img width="90%" alt="figure 1" src="z/fig1.png"></a>
+    </p>
+    <p>
+      On va maintenant faire quelque chose de faussement simple : réduire la taille de l'image [...]<br>
+      <a target="blank" href="z/fig1a.png"><img width="90%" alt="figure 1-a" src="z/fig1a.png"></a><br>
+      <a target="blank" href="z/fig1b.png"><img width="90%" alt="figure 1-b" src="z/fig1b.png"></a><br>
+      <a target="blank" href="z/fig1c.png"><img width="90%" alt="figure 1-c" src="z/fig1c.png"></a><br>
+    </p>
+    <hr>
+    <p>
+      PARTIES À COMPLÉTER :
+      <ul><li>Parler du resampling de <a target="blank" href="https://legacy.imagemagick.org/Usage/filter/nicolas/">Robidoux</a></li>
+        <li>Évoquer l'animation GIF et les 2 ou 3 commandes vue ce jour-là</li>
+        <li>Manipulations de MNT (estompage et carte de normale) + artéfacts dus au 8 bits</li>
+        <li>Le Secret de la Licorne : correction d'éclairement, homographie, moyenne de trois images</li>
+        <li>Évoquer la construction d'une image anaglyphe (nouvelle approche avec égalisation ?)</li>
+        <li>Parler du transfers d'histogramme ou au moins de <i>Couleur > Courbes</i></li>
+        <li>Pansharpening et notion d'espace colorimétrique</li>
+        <li>Blending mutli-résolution (plus remarque sur les masques et les modes de fusion)</li>
+        <li>Revenir sur les orthos couleurs ? (Mea culpa, manip' peu concluante.)</li></ul>
     </p>
     
   </body>
