@@ -11,6 +11,8 @@
       Sujet : petit rappel de certaines manipulations d'images vues en cours...
     </p>
     
+    <hr>
+    
     <h2>Introduction : jouons avec l'échantillonage d'une image</h2>
     <p>
       Le TP commence avec une manipulation "simple" : l'ouverture de cette <a target="blank" href="intro/gravure.jpg">image</a> 
@@ -26,20 +28,83 @@
       La première manipulation proposée est un seuillage de l'image, ce qui correspond à un passage de 256 niveaux (8 bits) à deux 
       niveaux (1 bit). Dans la capture d'écran ci-dessous, le seuil (souvent fixé par défaut à 128 ou 127) a été choisi de telle sorte 
       à obtenir un histogramme avec 50% de pixels noirs et 50% de pixels blancs :<br>
-      <a target="blank" href="z/fig1.png"><img width="90%" alt="figure 1" src="z/fig1.png"></a>
+      <a target="blank" href="z/fig1.png"><img width="90%" alt="figure 1" src="z/fig1.png"></a><br>
+      On va maintenant faire quelque chose de faussement simple : réduire la taille de l'image à une taille de 400 pixels de large sur 
+      500 pixels de haut. Pour cela il faut aller dans <i>Image > Échelle et taille de l'image…</i> et remplir les valeurs désirées en 
+      prenant soint de décocher le facteur de proportionnalité entre les valeurs :<br>
+      <a target="blank" href="z/fig0.png"><img width="90%" alt="figure 0" src="z/fig0.png"></a><br>
+      On va ensuite réduire cette gravure en testant les cinq modes proposés, ici seulement trois seront considérés :<br>
+      <a target="blank" href="z/fig1a.png"><img width="90%" alt="figure 1-a" src="z/fig1a.png"></a><br>
+      L'absence d'interpolation (interpolation par plus proche voisin en fait) donne une image avec des artéfacts de moiré dus à un
+      phénomène appelé "aliasing" (ou "repliement de spectre" en français) liée aux hautes fréquences (i.e. les hachures) de la gravure. 
+      Les valeurs binaires sont conservées (cf. histogramme). Le rendu final est peu esthétique pour ne pas dire carrément illisble.
+      C'est pourquoi, ont serait tenté de tester une interpolation bilinéaire ou bicubique pour la suite :<br>
+      <a target="blank" href="z/fig1b.png"><img width="90%" alt="figure 1-b" src="z/fig1b.png"></a><br>
+      Bien que le résultat soit plus lisible, un léger effet de moiré persiste (encore dû à l'aliasing) et on notera au passage que 
+      l'histogramme a vue apparaître de nouvelles valeurs de gris. Pour ceux qui veulent en savoir un peu plus, je peux accessoirement 
+      les inviter à jeter un oeil sur les cours d'interpolation 2D que je donne au PPMD : 
+      <a target="blank" href="https://laman.gitlab.io/mnt_2019/">"diapos"</a> - 
+      <a target="blank" href="https://laman.gitlab.io/mnt_2019/bonus/2020/">"bonus" (à compléter)</a> - Enfin, les interpolations de 
+      type NoHalo et LoHalo donnent des résultats nettement plus intéressant :<br>
+      <a target="blank" href="z/fig1c.png"><img width="90%" alt="figure 1-c" src="z/fig1c.png"></a><br>
+      Les effets de moiré ont totalement disparu et l'histogramme semble plus "régulier" que pour les interpolations bilinéaires et 
+      bicubiques. Sans rentrer dans le détail, cette méthode découle des travaux de 
+      <a target="blank" href="https://legacy.imagemagick.org/Usage/filter/nicolas/">Nicolas Rebidoux</a> et font appel à des notions de 
+      traitement d'images d'un niveau plutôt averti dans le domaine du <i>resampling</i> (ou "rééchatillonnage" en français).
+    </p>
+    
+    <hr>
+    
+    <h2>Pour aller plus loin : jouons avec une étoile de Siemens</h2>
+    <p>
+      En voulant tenter de faire une capture vidéo de la manipulation de "fabrication" d'une étoile de Siemens (ou "mire rayonnante" si 
+      on n'aime pas retenir les noms propres), je me suis rendu compte que toutes les fenêtres ne s'affichaient pas, rendant ainsi 
+      <a target="blank" href="https://youtu.be/6HLiHLmm4M8">ma vidéo</a> incompréhensible. Je vais donc essayer de résumer ce qu'on a 
+      vu de manière télégraphique :
+      <ul>
+        <li>
+          Lancer GIMP puis <i>Fichier > Nouvelle image…</i> (ou direct' <b>Ctrl+N</b>) 
+        </li>
+        <li>
+          Largeur : 1000 - Hauteur : 2000 (pixels) puis remplir en blanc (pot de peinture)
+        </li>
+        <li>
+          Vérifier avant que la couleur avant-plan et bien le blanc (et arrière-plan noir) 
+        </li>
+        <li>
+          <i>Image > Taille du canevas…</i> : 2000 * 2000 puis click droit s/ le calque "Arrière-Plan" et "Aplatir l'image"
+        </li>
+        <li>
+          <i>Aide > Rechercher et exécuter une commande</i> : tapper "Petit raccords" (nb de segments : 6) puis <b>Ctrl+F</b>
+        </li>
+      </ul>
+      Le <b>Ctrl+F</b> répéte le filtre précédent. On doit alors avoir de jolies motif évoquant les célèbres 
+      <a target="blank" href="https://fr.wikipedia.org/wiki/Colonnes_de_Buren">colonnes de Buren</a> (36 périodes ici, mais libre à 
+      vous d'en faire plus). Pour passer à une mire rayonnante : <i>Distorsion > Coordonnées polaires</i>.<br>
+      <a target="blank" href="z/fig2.png"><img width="90%" alt="figure 2" src="z/fig2.png"></a><br>
     </p>
     <p>
-      On va maintenant faire quelque chose de faussement simple : réduire la taille de l'image [...]<br>
-      <a target="blank" href="z/fig1a.png"><img width="90%" alt="figure 1-a" src="z/fig1a.png"></a><br>
-      <a target="blank" href="z/fig1b.png"><img width="90%" alt="figure 1-b" src="z/fig1b.png"></a><br>
-      <a target="blank" href="z/fig1c.png"><img width="90%" alt="figure 1-c" src="z/fig1c.png"></a><br>
+      Le motif de la mire rayonnante a des propriétés assez intéressantes pour détérminer le type de flou ainsi que son orientation. 
+      Elle est par exemple utilisée pour vérifier la qualité d'une optique lors des test d'étalonnage de caméra. La vidéo ci dessous 
+      illustre le comportement de la mire en fonction du flou :<br>
+      <iframe width="100%" src="https://youtu.be/pN6HAnc4gdE"></iframe><br>
+      On notera un phénomème assez intéressant à savoir des successions d'extinction puis d'inversion de contrastes dans le cas du 
+      flou directionnel de type "porte" ou encore dans les flous de type "moyenne sur un carré". Par contre, cette inversion de 
+      contraste disparaît dans le cas du flou gaussien. Pour faire très simple : la gaussienne n'inverse jamais les motifs de la mire 
+      tandis que la porte le fait (en particulier dans le cas où la largeur de la porte fait (N + 0.5) fois la période du motif, avec
+      N entier naturel non nul). En bonus, je vous montre cet exemple que j'ai recalculé avec une mire dont le n° de ligne correspond 
+      aux nombres de période du motif sinusoïdal :<br>
+      <iframe width="100%" src="https://youtu.be/8BNO0g9b6QA"></iframe><br>
     </p>
+    <p>
+      La manip' correspondant à une animation GIF sera peut-être complétée plus tard (mais elle est facile à retrouver par soi-même).
+    </p>
+    
     <hr>
+    
     <p>
       PARTIES À COMPLÉTER :
-      <ul><li>Parler du resampling de <a target="blank" href="https://legacy.imagemagick.org/Usage/filter/nicolas/">Robidoux</a></li>
-        <li>Évoquer l'animation GIF et les 2 ou 3 commandes vue ce jour-là</li>
-        <li>Manipulations de MNT (estompage et carte de normale) + artéfacts dus au 8 bits</li>
+      <ul><li>Manipulations de MNT (estompage et carte de normale) + artéfacts dus au 8 bits</li>
         <li>Le Secret de la Licorne : correction d'éclairement, homographie, moyenne de trois images</li>
         <li>Évoquer la construction d'une image anaglyphe (nouvelle approche avec égalisation ?)</li>
         <li>Parler du transfers d'histogramme ou au moins de <i>Couleur > Courbes</i></li>
