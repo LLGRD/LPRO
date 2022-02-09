@@ -104,6 +104,8 @@
       La manip' correspondant à une animation GIF sera peut-être complétée plus tard (mais elle est facile à retrouver par soi-même).
     </p>
 
+    <hr>
+
     <h2>Pansharpening : jouons avec les (espaces de) couleurs</h2>
     <p>
       L'idée du "pansharpening" serait de fusionner une image panchromatique (en niveaux de gris) haute-résolution avec une image 
@@ -128,7 +130,7 @@
       J'en profite pour ajouter une remarque personnelle concernant la définition de l'espace HSV (Hue-Saturation-Value) ou TSV en 
       français, pour cela je vous propose d'examiner la décompostion de l'image considérée (qui pour anecdote est une illustration 
       de Jean-Claude Mézières, disparu il y a peu) :<br>
-      <a target="blank" href="z/jungle_hsv.png"><img width="66%" alt="décomposition HSV" src="z/jungle_hsv.png"></a>&nbsp;
+      <a target="blank" href="z/jungle_hsv.png"><img width="66%" alt="décomposition HSV" src="z/jungle_hsv.png"></a>&nbsp;&nbsp;&nbsp;
       <a target="blank" href="z/jungle1.gif"><img width="22%" alt="animation HSV" src="z/jungle1.gif"></a><br>
       Au centre, c'est la "valeur" (i.e. le max des canaux RVB) et, à gauche, la saturation égale à "1-min/max" ce qui pose problème 
       pour les pixels noirs (0,0,0) qui dont la saturation vaut par convention 0 (par prolongement sur l'axe des gris où R=V=B) mais 
@@ -138,6 +140,38 @@
       (obtenue avec GIMP en dupliquant 17 fois le calque et en faisant varier la teinte de 20° entre chaque images avec <i>Couleurs > 
       Teinte-Saturation </i> puis en exportant sous la forme d'un fichier GIF en cochant "en tant qu'animation" et "boucler 
       indéfinement"). C'est joli, non ?
+    </p>
+
+    <hr>
+
+    <h2>Égalisons une image "à la main" (avec les courbes)</h2>
+    <p>
+      <a target="blank" href="blending/img1.png"><img width="30%" alt="figure 4a" src="blending/img1.png"></a>&nbsp;
+      <a target="blank" href="z/main_eq2.png"><img width="30%" alt="figure 4b" src="z/main_eq2.png"></a>&nbsp;
+      <a target="blank" href="z/main_eq1.png"><img width="30%" alt="figure 4c" src="z/main_eq1.png"></a><br>
+    </p>
+    <p>
+      De gauche à droite : l'image d'origine, l'image égalisée avec <i>Couleurs > Auto > Égaliser</i> et l'image de la 
+      main égalisée "à la main" avec <i>Couleurs > Courbes</i>. Pour cette dernière méthode, il faut se rappeler de la 
+      "définition" de l'égalisation d'histogramme : un histogramme est une densité de probabilité, mettons que pour une 
+      valeur v = 45 entre 0 et 255 hist(45) = 0,9% c'est-à-dire que 0,9% des pixels de l'image valent 45. L'histogramme 
+      cumulé donne la probablilté d'avoir un  pixel de valeur inférieur ou égal à v. Si par exemple pour ce même v = 45 
+      son histogramme cumulé vaut 25% cela veut dire qu'on aura 25% de chance d'avoir un pixel inférieur ou égal à 45. 
+      En appliquant la courbe d'histogramme cumulé à l'image (le 25% correpondra alors à 63 ou 64 et le 100% à 255) on 
+      aura ce qu'on appelle une image "égalisée", c'est à dire une image où toutes les valeurs des pixels auront 
+      théoriquement la même chance d'appraître. En effet, dans l'image égalisée, les 25% de pixels dont les valeurs 
+      étaient inférieur à 45 corresponde maintenant à 25% de pixels dont les valeurs sont inférieur à 64. L'allure 
+      générale de l'histogramme cumulé est une droite allant de 0 à 255 et l'histgramme correspondant (par abus de 
+      langage) à la "dérivée" de l'histogramme cumulé, cet histogramme "égalisé" sera donc "plat".
+    </p>
+    <p>
+      Pour retrouver les courbes, j'ai procédé très approximativement de la manière suivante : pour chacun des 8 zones 
+      définissant l'histogramme dans la fenêtre de manipulation de courbes, j'ai calculé l'aire de l'histogramme (c'est
+      la moyenne de histogramme réduite sur 8 zones). Pour le bleu, j'ai 1 - 4,5 - 2,5 - 4 - 0 - 0 - 0 - 0 ce qui donne 
+      après "intégration" : 1 - 5,5 - 8 - 12 - 12 - etc et -à la louche- ça donne 8% 48% 75% 100% ce que je retranscris 
+      sur la courbe (en trichant un peu pour faire coller au points d'inflexion de ma courbe aux pics de l'histogramme) :
+      <br>
+      <a target="blank" href="z/main_cb1.png"><img width="100%" alt="figure 4c" src="z/main_cb1.png"></a>
     </p>
     
     <hr>
