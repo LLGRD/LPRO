@@ -103,6 +103,42 @@
     <p>
       La manip' correspondant à une animation GIF sera peut-être complétée plus tard (mais elle est facile à retrouver par soi-même).
     </p>
+
+    <h2>Pansharpening : jouons avec les (espaces de) couleurs</h2>
+    <p>
+      L'idée du "pansharpening" serait de fusionner une image panchromatique (en niveaux de gris) haute-résolution avec une image 
+      couleur basse résolution. Dans notre example, on ouvrira d'abord <a target="blank" href="z/jungle_val.png">jungle_val.png</a> 
+      puis <i>Fichier > Ouvrir en tant que calque</i> <a target="blank" href="z/jungle2.png">jungle2.png</a> qui ne fait que 62*63 
+      pixels et est donc 10 fois plus petite que l'image en niveau de gris. Après avoir agrandi le calque "jungle2.png" avec l'outil
+      de mise à l'échelle (Maj+S) et recalé le calque avec l'outil déplacement (M) -en verifiant que "Déplacer le calque actif" est
+      bien coché- il ne reste plus qu'à fusionner les deux calques : mais quel mode choisir. Voici ci-dessous trois exemples :<br>
+      <a target="blank" href="z/jungle_t1.png"><img width="30%" alt="figure 3a" src="z/jungle_t1.png"></a>&nbsp;
+      <a target="blank" href="z/jungle_t2.png"><img width="30%" alt="figure 3b" src="z/jungle_t2.png"></a>&nbsp;
+      <a target="blank" href="z/jungle_t3.png"><img width="30%" alt="figure 3c" src="z/jungle_t3.png"></a><br>
+      À gauche le calque "jungle2.png" est en mode "Couleur TSL" et au centre en mode "Couleur LCh" tandis que le calque de fond 
+      reste en mode "Normal". Remarque : le resultat semble différer -colorimétriquement parlant- de "jungle2.png". Cela est dû au 
+      fait qu'on ne s'est pas placé dans le bon espace de couleur dans ces deux premiers cas car "jungle_val.png" ne correspond ni
+      à une luminance, ni à une luminosité mais à une valeur. Pour faire simple, il existe plusieur manière d'obtenir un image en 
+      niveaux de gris et celle dont on dispose représente une "valeur" (i.e. le max de R,V,B). On notera au passage que la commande 
+      de passage en niveaux de gris <i>Couleur > Désaturer</i> propose 5 modes différents (Luma, Luminosité, Luminance, Moyenne, Value). 
+      La (bonne) solution donnée à droite et de mettre le calque "jungle2.png" en arrière-plan en mode "normal" et "jungle_val.png" au 
+      premier plan avec le mode "Valeur HSV".
+    </p>
+    <p>
+      J'en profite pour ajouter une remarque personnelle concernant la définition de l'espace HSV (Hue-Saturation-Value) ou TSV en 
+      français, pour cela je vous propose d'examiner la décompostion de l'image considérée (qui pour anecdote est une illustration 
+      de Jean-Claude Mézières, disparu il y a peu) :<br>
+      <a target="blank" href="z/jungle_hsv.png"><img width="66%" alt="décomposition HSV" src="z/jungle_hsv.png"></a>&nbsp;
+      <a target="blank" href="z/jungle1.gif"><img width="22%" alt="animation HSV" src="z/jungle1.gif"></a><br>
+      Au centre, c'est la "valeur" (i.e. le max des canaux RVB) et, à gauche, la saturation égale à "1-min/max" ce qui pose problème 
+      pour les pixels noirs (0,0,0) qui dont la saturation vaut par convention 0 (par prolongement sur l'axe des gris où R=V=B) mais 
+      est selon moi contre-intuitif avec le fait que les pixel presque noir (0,0,1) (0,1,0) (1,2,0) etc auront pour saturation 1 d'où 
+      les discontinuités dans le canal "saturation". Pour le canal "teinte", à droite, il faut l'interpréter comme un angle où 0° et 
+      360° correspondent à la teinte rouge. Le caractère cyclique de la teinte est illustrée par la petite animation GIF tout à droite 
+      (obtenue avec GIMP en dupliquant 17 fois le calque et en faisant varier la teinte de 20° entre chaque images avec <i>Couleurs > 
+      Teinte-Saturation </i> puis en exportant sous la forme d'un fichier GIF en cochant "en tant qu'animation" et "boucler 
+      indéfinement"). C'est joli, non ?
+    </p>
     
     <hr>
     
@@ -114,10 +150,16 @@
         <li>Parler du transfers d'histogramme ou au moins de <i>Couleur > Courbes</i><br>
           (pour info, un script python : <a target="blank" href="https://github.com/LLGRD/misc1/tree/master/python">
           https://github.com/LLGRD/misc1/tree/master/python</a>)</li>
-        <li>Pansharpening et notion d'espace colorimétrique</li>
         <li>Blending mutli-résolution (plus remarque sur les masques et les modes de fusion)</li>
         <li>Revenir sur les orthos couleurs ? (Mea culpa, manip' peu concluante.)</li></ul>
     </p>
+    <p>
+      Lien intéressant sur les modes de fusion de calque : <br>
+      <a target="blank" href="https://docs.gimp.org/2.10/fr/gimp-concepts-layer-modes.html">
+        https://docs.gimp.org/2.10/fr/gimp-concepts-layer-modes.html</a>
+    </p>
+
+    <hr>
     
   </body>
   
